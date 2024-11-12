@@ -1,5 +1,6 @@
 import React from 'react';
 import './Inicio.css';
+import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -20,13 +21,12 @@ function Inicio() {
           <a href="#atencion">Atención al Cliente</a>
         </nav>
         <div className="cta-buttons">
-          <button className="cta abrir-cuenta">Abre tu Cuenta</button>
-          <button className="cta banca-internet">Banca por Internet</button>
+          <Link to="/register" className="cta abrir-cuenta">Abre tu Cuenta</Link>
+          <Link to="/login" className="cta banca-internet">Banca por Internet</Link>
         </div>
       </header>
 
       <main>
-        {/* Carrusel */}
         <Swiper
           modules={[Pagination]}
           pagination={{ clickable: true }}
@@ -49,7 +49,6 @@ function Inicio() {
         </Swiper>
       </main>
 
-      {/* Pie de página */}
       <footer className="footer">
         <div className="footer-links">
           <a href="#seguridad">Seguridad</a>

@@ -1,9 +1,12 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import Inicio from './Inicio.jsx'; // Importa Inicio en lugar de App
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Inicio /> {/* Renderiza Inicio en lugar de App */}
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StrictMode>
 );

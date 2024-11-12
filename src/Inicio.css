@@ -159,3 +159,11 @@ main p {
   font-size: 0.85em;
   color: #cccccc;
 }
+.cta-buttons a {
+  text-decoration: none; /* Quita el subrayado */
+  color: white;
+}
+
+.cta-buttons a:hover {
+  text-decoration: none; /* Asegura que no haya subrayado al pasar el ratón */
+}
