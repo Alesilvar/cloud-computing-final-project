@@ -1,22 +1,73 @@
-import React from 'react';
+import React, { useState } from 'react';
+import api from '../api'; // Importa la configuración de API
 
 function Register() {
+  const [formData, setFormData] = useState({
+    nombre: '',
+    apellido: '',
+    email: '',
+    telefono: '',
+    dni: '',
+    direccion: '',
+    fecha_nac: '',
+    password: ''
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await api.post('/usuarios/crear', formData);
+      console.log('Usuario creado:', response.data);
+      alert('Usuario creado exitosamente');
+    } catch (error) {
+      console.error('Error al crear usuario:', error);
+      alert('Hubo un error al crear el usuario');
+    }
+  };
+
   return (
     <div style={styles.container}>
       <h2 style={styles.heading}>Únete a ProBanco</h2>
       <p style={styles.subheading}>Regístrate y descubre todos los beneficios de ser parte de ProBanco.</p>
-      <form style={styles.form}>
+      <form onSubmit={handleSubmit} style={styles.form}>
         <label style={styles.label}>
           Nombre:
-          <input type="text" placeholder="Tu nombre" style={styles.input} />
+          <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} placeholder="Tu nombre" style={styles.input} required />
+        </label>
+        <label style={styles.label}>
+          Apellido:
+          <input type="text" name="apellido" value={formData.apellido} onChange={handleChange} placeholder="Tu apellido" style={styles.input} required />
         </label>
         <label style={styles.label}>
           Correo Electrónico:
-          <input type="email" placeholder="ejemplo@correo.com" style={styles.input} />
+          <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="ejemplo@correo.com" style={styles.input} required />
+        </label>
+        <label style={styles.label}>
+          Teléfono:
+          <input type="text" name="telefono" value={formData.telefono} onChange={handleChange} placeholder="Número de teléfono" style={styles.input} required />
+        </label>
+        <label style={styles.label}>
+          DNI:
+          <input type="text" name="dni" value={formData.dni} onChange={handleChange} placeholder="DNI" style={styles.input} required />
+        </label>
+        <label style={styles.label}>
+          Dirección:
+          <input type="text" name="direccion" value={formData.direccion} onChange={handleChange} placeholder="Dirección" style={styles.input} required />
+        </label>
+        <label style={styles.label}>
+          Fecha de Nacimiento:
+          <input type="date" name="fecha_nac" value={formData.fecha_nac} onChange={handleChange} style={styles.input} required />
         </label>
         <label style={styles.label}>
           Contraseña:
-          <input type="password" placeholder="Contraseña" style={styles.input} />
+          <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Contraseña" style={styles.input} required />
         </label>
         <button type="submit" style={styles.button}>Crear Cuenta</button>
       </form>
@@ -27,62 +78,56 @@ function Register() {
 const styles = {
   container: {
     width: '100%',
-    maxWidth: '400px',
+    maxWidth: '450px',
     margin: '0 auto',
-    padding: '40px 20px',
-    backgroundColor: '#f4f4f9',
-    borderRadius: '8px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    padding: '40px',
+    backgroundColor: '#ffffff',
+    borderRadius: '10px',
+    boxShadow: '0 6px 15px rgba(0, 0, 0, 0.2)',
     textAlign: 'center',
+    fontFamily: 'Arial, sans-serif',
   },
   heading: {
-    fontSize: '1.8em',
-    color: '#1a1a1a',
-    marginBottom: '10px',
+    fontSize: '2em',
+    color: '#333333',
+    marginBottom: '15px',
   },
   subheading: {
     fontSize: '1em',
-    color: '#555',
-    marginBottom: '20px',
+    color: '#666666',
+    marginBottom: '30px',
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '15px',
+    gap: '20px',
   },
   label: {
     display: 'flex',
     flexDirection: 'column',
     fontSize: '0.9em',
-    color: '#333',
+    color: '#333333',
     textAlign: 'left',
   },
   input: {
-    padding: '10px',
+    padding: '12px',
     border: '1px solid #ddd',
-    borderRadius: '4px',
+    borderRadius: '5px',
     fontSize: '1em',
+    backgroundColor: '#f9f9f9',
+    transition: 'border-color 0.3s',
   },
   button: {
-    padding: '12px 20px',
-    backgroundColor: '#ff9f1a',
+    padding: '14px 0',
+    backgroundColor: '#007bff',
     color: 'white',
-    fontSize: '1em',
+    fontSize: '1.1em',
     border: 'none',
-    borderRadius: '4px',
+    borderRadius: '5px',
     cursor: 'pointer',
     fontWeight: '600',
     transition: 'background-color 0.3s',
   },
-};
-
-styles.input[':focus'] = {
-  outline: 'none',
-  borderColor: '#1a1a1a',
-};
-
-styles.button[':hover'] = {
-  backgroundColor: '#e88e10',
 };
 
 export default Register;
