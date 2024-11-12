@@ -1,169 +1,196 @@
+/* Colores */
+:root {
+  --primary-red: #D32F2F;
+  --white: #FFFFFF;
+  --text-gray: #333333;
+  --light-gray: #f5f5f5;
+  --dark-gray: #333333;
+}
+
 /* Estilos generales */
 body {
   margin: 0;
-  background-color: #f4f4f9;
-  color: #333;
-}
-
-.Inicio {
-  text-align: center;
+  font-family: 'Arial', sans-serif;
+  background-color: var(--light-gray);
+  color: var(--text-gray);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* Barra de navegación */
 .navbar {
   display: flex;
   align-items: center;
-  background-color: #1a1a1a;
-  padding: 20px 40px;
-  color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.logo {
-  width: 50px;
-  margin-right: 40px; /* Más espacio al logo */
+  justify-content: space-between; /* Asegura que los elementos estén bien distribuidos */
+  background-color: var(--primary-red);
+  padding: 15px 30px;
+  color: var(--white);
 }
 
 .navbar h1 {
   margin: 0;
-  font-size: 1.8em;
-  font-weight: 700;
+  font-size: 1.5em;
 }
 
 nav {
   display: flex;
-  align-items: center;
-  gap: 60px; /* Más espacio entre los enlaces */
-  margin-left: 40px; /* Más espacio entre el título y los enlaces */
+  gap: 20px;
 }
 
 nav a {
-  color: #ddd;
-  font-size: 1.1em;
+  color: var(--white);
+  font-size: 0.9em;
   text-decoration: none;
-  transition: color 0.3s ease;
 }
 
 nav a:hover {
-  color: #ffdd57;
+  text-decoration: underline;
 }
 
-/* Botones de llamada a la acción */
-.cta-buttons {
-  margin-left: auto;
-  display: flex;
-  gap: 20px; /* Más espacio entre los botones */
-}
-
-.cta {
-  padding: 12px 24px; /* Aumenta el tamaño del botón */
-  font-size: 1em;
-  color: white;
-  border: none;
+/* Botón "Banca por Internet" */
+.cta-buttons .banca-internet {
+  padding: 10px 20px;
+  font-size: 0.9em;
+  color: var(--primary-red);
+  background-color: var(--white);
+  border: 1px solid var(--primary-red);
   border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.abrir-cuenta {
-  background-color: #ff9f1a; /* Naranja */
-}
-
-.banca-internet {
-  background-color: #e63946; /* Rojo */
-}
-
-.cta:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Contenido principal */
-main {
-  padding: 40px 20px;
-}
-
-main h2 {
-  font-size: 2em;
-  font-weight: 700;
-  color: #1a1a1a;
-}
-
-main p {
-  font-size: 1.1em;
-  color: #555;
-  max-width: 600px;
-  margin: 20px auto;
-  line-height: 1.6;
-}
-/* Carrusel */
-.carousel {
-  width: 80%;
-  margin: 0 auto;
-  padding: 20px 0;
-}
-
-.carousel-slide {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  font-weight: bold;
   text-align: center;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
 }
 
-.carousel-slide h2 {
-  font-size: 1.8em;
-  color: #1a1a1a;
+.banca-internet:hover {
+  background-color: var(--primary-red);
+  color: var(--white);
+  transform: scale(1.05);
+}
+
+/* Sección de Registro */
+.register-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 20px;
+  background-color: var(--light-gray);
+  border-radius: 8px;
+  margin: 20px auto;
+  max-width: 900px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.register-info {
+  max-width: 400px;
+  padding: 20px;
+}
+
+.register-info h2 {
+  color: var(--primary-red);
   margin-bottom: 10px;
 }
 
-.carousel-slide p {
-  font-size: 1.1em;
-  color: #555;
+.register-info p {
+  color: var(--text-gray);
+  line-height: 1.6;
 }
 
-/* Pie de página */
-.footer {
-  background-color: #1a1a1a; /* Negro para que coincida con la barra de navegación */
-  color: #ffffff;
-  padding: 20px 40px;
+/* Estilo de tarjetas de productos y servicios */
+.productos-servicios {
+  display: flex;
+  justify-content: space-around;
+  padding: 40px 20px;
+  background-color: var(--light-gray);
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.servicio-card {
+  background-color: var(--white);
+  width: 240px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+}
+
+.servicio-card h3 {
+  font-size: 1.2em;
+  color: var(--text-gray);
+  margin-bottom: 10px;
+}
+
+.servicio-card p {
+  color: #555;
   font-size: 0.9em;
+  margin-bottom: 15px;
+}
+
+.servicio-card a {
+  color: var(--primary-red);
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.servicio-card a:hover {
+  text-decoration: underline;
+}
+
+/* Iconos de servicios */
+.servicio-icon {
+  font-size: 3em;
+  color: #B03A3A;
+  margin-bottom: 10px;
+}
+
+/* Footer */
+.footer {
+  background-color: var(--dark-gray);
+  color: var(--white);
+  padding: 20px;
+  font-size: 0.9em;
+  text-align: center;
+  width: 100%;
+  margin-top: auto;
 }
 
 .footer-links {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 20px;
+  justify-content: center;
+  gap: 10px;
   margin-bottom: 10px;
 }
 
 .footer-links a {
-  color: #ffffff;
+  color: var(--white);
   text-decoration: none;
-  font-size: 0.9em;
-  transition: color 0.3s;
 }
 
 .footer-links a:hover {
-  color: #ffdd57;
+  text-decoration: underline;
 }
 
 .footer-info {
-  margin-top: 10px;
   font-size: 0.85em;
   color: #cccccc;
-}
-.cta-buttons a {
-  text-decoration: none; /* Quita el subrayado */
-  color: white;
+  text-align: center;
+  margin-top: 10px;
 }
 
-.cta-buttons a:hover {
-  text-decoration: none; /* Asegura que no haya subrayado al pasar el ratón */
+/* Botón para alternar formularios */
+.toggle-button {
+  background-color: transparent;
+  border: none;
+  color: var(--primary-red);
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  text-decoration: underline;
+}
+
+.toggle-button:hover {
+  color: #b71c1c;
 }

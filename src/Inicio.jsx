@@ -1,18 +1,22 @@
-import React from 'react';
+// src/Inicio.jsx
+import React, { useState } from 'react';
 import './Inicio.css';
+import RegisterForm from './components/RegisterForm';
+import LoginForm from './components/LoginForm';
 import { Link } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
-import logo from './assets/logo.png';
+import { FaPiggyBank, FaCreditCard, FaMoneyBillWave, FaPercentage } from 'react-icons/fa';
 
 function Inicio() {
+  const [isRegister, setIsRegister] = useState(true);
+
+  const toggleForm = () => {
+    setIsRegister(!isRegister);
+  };
+
   return (
     <div className="Inicio">
       <header className="navbar">
-        <img src={logo} alt="ProBanco Logo" className="logo" />
-        <h1>ProBanco</h1>
+        <h1>BEK</h1>
         <nav>
           <a href="#productos">Productos</a>
           <a href="#promociones">Promociones</a>
@@ -21,32 +25,48 @@ function Inicio() {
           <a href="#atencion">Atención al Cliente</a>
         </nav>
         <div className="cta-buttons">
-          <Link to="/register" className="cta abrir-cuenta">Abre tu Cuenta</Link>
           <Link to="/login" className="cta banca-internet">Banca por Internet</Link>
         </div>
       </header>
 
       <main>
-        <Swiper
-          modules={[Pagination]}
-          pagination={{ clickable: true }}
-          spaceBetween={50}
-          slidesPerView={1}
-          className="carousel"
-        >
-          <SwiperSlide className="carousel-slide">
-            <h2>¡Usa Plin con ProBanco y gana hasta S/50!</h2>
-            <p>Participa en nuestra promoción y gana premios cada mes.</p>
-          </SwiperSlide>
-          <SwiperSlide className="carousel-slide">
-            <h2>Tarjetas de crédito sin comisiones</h2>
-            <p>Disfruta de nuestros beneficios exclusivos para clientes nuevos.</p>
-          </SwiperSlide>
-          <SwiperSlide className="carousel-slide">
-            <h2>Acceso a nuestros servicios digitales</h2>
-            <p>Maneja tu cuenta desde cualquier lugar con nuestra app.</p>
-          </SwiperSlide>
-        </Swiper>
+        <div className="register-section">
+          <div className="register-info">
+            <h2>Bienvenido a BEK</h2>
+            <p>En BEK, estamos comprometidos a brindarte las mejores soluciones bancarias para tu crecimiento personal y profesional. Únete hoy y descubre una nueva forma de manejar tus finanzas de manera segura y eficiente.</p>
+            <button onClick={toggleForm} className="toggle-button">
+              {isRegister ? "¿Ya tienes cuenta? Inicia sesión" : "¿No tienes cuenta? Regístrate"}
+            </button>
+          </div>
+          {isRegister ? <RegisterForm /> : <LoginForm />}
+        </div>
+
+        <section className="productos-servicios">
+          <div className="servicio-card">
+            <FaPiggyBank className="servicio-icon" />
+            <h3>Cuenta de Ahorros</h3>
+            <p>Obtén intereses atractivos y maneja tu cuenta desde cualquier lugar.</p>
+            <Link to="/savings">Más información &gt;</Link>
+          </div>
+          <div className="servicio-card">
+            <FaCreditCard className="servicio-icon" />
+            <h3>Tarjeta de Crédito</h3>
+            <p>Beneficios exclusivos para nuestros clientes y sin comisiones de mantenimiento.</p>
+            <Link to="/credit-card">Aprender más &gt;</Link>
+          </div>
+          <div className="servicio-card">
+            <FaMoneyBillWave className="servicio-icon" />
+            <h3>Préstamos Personales</h3>
+            <p>Accede a préstamos con tasas preferenciales para cumplir tus sueños.</p>
+            <Link to="/loans">Solicita aquí &gt;</Link>
+          </div>
+          <div className="servicio-card">
+            <FaPercentage className="servicio-icon" />
+            <h3>Tasas de Interés</h3>
+            <p>Consulta nuestras tasas de interés competitivas en el mercado.</p>
+            <Link to="/rates">Ver tasas &gt;</Link>
+          </div>
+        </section>
       </main>
 
       <footer className="footer">
@@ -59,7 +79,7 @@ function Inicio() {
           <a href="#contacto">Llámanos (01) 595-0000</a>
         </div>
         <div className="footer-info">
-          Banco ProBanco - RUC 20100130204 | Av. República de Panamá 3055 - San Isidro
+          Banco BEK - RUC 20100130204 | Av. República de Panamá 3055 - San Isidro
         </div>
       </footer>
     </div>

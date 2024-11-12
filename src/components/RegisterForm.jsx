@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import api from '../api'; // Importa la configuración de API
+import api from '../api';
 
-function Register() {
+function RegisterForm() {
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
@@ -34,8 +34,8 @@ function Register() {
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.heading}>Únete a ProBanco</h2>
-      <p style={styles.subheading}>Regístrate y descubre todos los beneficios de ser parte de ProBanco.</p>
+      <h2 style={styles.heading}>Únete a BEK</h2>
+      <p style={styles.subheading}>Regístrate y descubre todos los beneficios de ser parte de BEK.</p>
       <form onSubmit={handleSubmit} style={styles.form}>
         <label style={styles.label}>
           Nombre:
@@ -79,55 +79,63 @@ const styles = {
   container: {
     width: '100%',
     maxWidth: '450px',
-    margin: '0 auto',
-    padding: '40px',
+    padding: '30px',
     backgroundColor: '#ffffff',
     borderRadius: '10px',
-    boxShadow: '0 6px 15px rgba(0, 0, 0, 0.2)',
+    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.15)',
     textAlign: 'center',
     fontFamily: 'Arial, sans-serif',
   },
   heading: {
-    fontSize: '2em',
-    color: '#333333',
-    marginBottom: '15px',
+    fontSize: '1.8em',
+    color: '#D32F2F',
+    marginBottom: '10px',
+    fontWeight: '600',
   },
   subheading: {
     fontSize: '1em',
     color: '#666666',
-    marginBottom: '30px',
+    marginBottom: '25px',
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '20px',
+    gap: '15px',
   },
   label: {
-    display: 'flex',
-    flexDirection: 'column',
     fontSize: '0.9em',
     color: '#333333',
     textAlign: 'left',
+    fontWeight: '500',
+    marginBottom: '5px',
   },
   input: {
     padding: '12px',
-    border: '1px solid #ddd',
-    borderRadius: '5px',
+    border: '1px solid #cccccc',
+    borderRadius: '6px',
     fontSize: '1em',
     backgroundColor: '#f9f9f9',
     transition: 'border-color 0.3s',
+    outline: 'none',
+  },
+  inputFocus: {
+    borderColor: '#D32F2F',
   },
   button: {
-    padding: '14px 0',
-    backgroundColor: '#007bff',
+    padding: '12px',
+    backgroundColor: '#D32F2F',
     color: 'white',
     fontSize: '1.1em',
     border: 'none',
-    borderRadius: '5px',
+    borderRadius: '6px',
     cursor: 'pointer',
-    fontWeight: '600',
-    transition: 'background-color 0.3s',
+    fontWeight: 'bold',
+    transition: 'background-color 0.3s, transform 0.2s',
+  },
+  buttonHover: {
+    backgroundColor: '#B71C1C',
+    transform: 'scale(1.05)',
   },
 };
 
-export default Register;
+export default RegisterForm;
