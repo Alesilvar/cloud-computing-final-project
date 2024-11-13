@@ -1,12 +1,42 @@
+// src/pages/LoginPage.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
+import LoginForm from '../components/LoginForm';
 
-function Login() {
+function LoginPage() {
   return (
-    <div>
-      <h2>Página de Login</h2>
-      <p>Bienvenido a la página de inicio de sesión de ProBanco.</p>
+    <div style={styles.container}>
+      <h1 style={styles.heading}>Bienvenido a BEK</h1>
+      <LoginForm />
+      <p style={styles.registerPrompt}>
+        ¿No tienes una cuenta? <Link to="/register" style={styles.link}>Regístrate aquí</Link>
+      </p>
     </div>
   );
 }
 
-export default Login;
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+    backgroundColor: '#f0f2f5',
+    padding: '20px'
+  },
+  heading: {
+    fontSize: '24px',
+    marginBottom: '20px'
+  },
+  registerPrompt: {
+    marginTop: '20px',
+    fontSize: '16px'
+  },
+  link: {
+    color: '#007bff',
+    textDecoration: 'none'
+  }
+};
+
+export default LoginPage;

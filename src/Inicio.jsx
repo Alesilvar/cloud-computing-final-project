@@ -1,6 +1,7 @@
 // src/Inicio.jsx
 import React, { useState } from 'react';
 import './Inicio.css';
+import './input.css';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
 import { Link } from 'react-router-dom';

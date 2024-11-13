@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Inicio from './Inicio';
 import Login from './pages/Login';
+import './input.css';
 function App() {
   return (
     <Routes>
