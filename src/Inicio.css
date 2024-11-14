@@ -7,7 +7,12 @@
   --highlight-yellow: #f8c146;
 }
 
-/* Estilos generales */
+/* Remueve subrayado de todos los enlaces de forma global */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 body, html {
   margin: 0;
   padding: 0;
@@ -57,7 +62,6 @@ nav {
 nav a {
   color: var(--white);
   font-size: 0.9em;
-  text-decoration: none;
 }
 
 nav a:hover {
@@ -74,7 +78,6 @@ nav a:hover {
   border-radius: 4px;
   font-weight: bold;
   text-align: center;
-  text-decoration: none;
   transition: background-color 0.3s, color 0.3s, transform 0.2s;
 }
 
@@ -146,8 +149,6 @@ nav a:hover {
 .servicio-card a {
   color: var(--primary-red);
   font-weight: bold;
-  text-decoration: none;
-  font-size: 0.9em;
 }
 
 .servicio-card a:hover {
@@ -216,7 +217,7 @@ nav a:hover {
 }
 
 .discover-button:hover {
-  background-color:var(--dark-gray);
+  background-color: var(--dark-gray);
 }
 
 /* Sección de promoción de la app */
@@ -272,7 +273,6 @@ nav a:hover {
   background-color: var(--dark-gray);
   color: var(--white);
   border-radius: 8px;
-  text-decoration: none;
   font-size: 0.9em;
   font-weight: bold;
   transition: background-color 0.3s, transform 0.2s;
@@ -310,7 +310,6 @@ nav a:hover {
 
 .footer-links a {
   color: var(--white);
-  text-decoration: none;
 }
 
 .footer-links a:hover {

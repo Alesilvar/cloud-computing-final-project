@@ -17,11 +17,11 @@ function Inicio() {
       <header className="navbar">
         <h1><FaLandmark className="navbar-icon" /> BEK</h1>
         <nav>
-          <a href="#productos">Productos</a>
-          <a href="#promociones">Promociones</a>
-          <a href="#servicios">Servicios</a>
-          <a href="#sucursales">Sucursales</a>
-          <a href="#atencion">Atención al Cliente</a>
+          <Link to="/proximamente">Productos</Link>
+          <Link to="/proximamente">Promociones</Link>
+          <Link to="/proximamente">Servicios</Link>
+          <Link to="/proximamente">Sucursales</Link>
+          <Link to="/proximamente">Atención al Cliente</Link>
         </nav>
         <div className="cta-buttons">
           <Link to="/login" className="cta banca-internet">Banca por Internet</Link>
@@ -45,25 +45,25 @@ function Inicio() {
             <FaPiggyBank className="servicio-icon" />
             <h3>Cuenta de Ahorros</h3>
             <p>Obtén intereses atractivos y maneja tu cuenta desde cualquier lugar.</p>
-            <Link to="/savings">Más información &gt;</Link>
+            <Link to="/proximamente">Más información &gt;</Link>
           </div>
           <div className="servicio-card">
             <FaCreditCard className="servicio-icon" />
             <h3>Tarjeta de Crédito</h3>
             <p>Beneficios exclusivos para nuestros clientes y sin comisiones de mantenimiento.</p>
-            <Link to="/credit-card">Aprender más &gt;</Link>
+            <Link to="/proximamente">Aprender más &gt;</Link>
           </div>
           <div className="servicio-card">
             <FaMoneyBillWave className="servicio-icon" />
             <h3>Préstamos Personales</h3>
             <p>Accede a préstamos con tasas preferenciales para cumplir tus sueños.</p>
-            <Link to="/loans">Solicita aquí &gt;</Link>
+            <Link to="/proximamente">Solicita aquí &gt;</Link>
           </div>
           <div className="servicio-card">
             <FaPercentage className="servicio-icon" />
             <h3>Tasas de Interés</h3>
             <p>Consulta nuestras tasas de interés competitivas en el mercado.</p>
-            <Link to="/rates">Ver tasas &gt;</Link>
+            <Link to="/proximamente">Ver tasas &gt;</Link>
           </div>
         </section>
 
@@ -83,7 +83,9 @@ function Inicio() {
                   <Link to="/terms" className="terms-link">fines comerciales y/o publicitarios</Link>
                 </label>
               </div>
-              <button className="discover-button">Descubrir productos</button>
+              <button className="discover-button" onClick={() => window.location.href = '/proximamente'}>
+                Descubrir productos
+              </button>
             </div>
           </div>
         </section>
@@ -98,18 +100,18 @@ function Inicio() {
             </div>
             <p>Todas las operaciones desde tu celular</p>
             <div className="app-stores">
-              <a href="#" className="store-button">
+              <Link to="/proximamente" className="store-button">
                 <FaApple className="store-icon" />
                 Consíguelo en el App Store
-              </a>
-              <a href="#" className="store-button">
+              </Link>
+              <Link to="/proximamente" className="store-button">
                 <FaGooglePlay className="store-icon" />
                 Disponible en Google Play
-              </a>
-              <a href="#" className="store-button">
+              </Link>
+              <Link to="/proximamente" className="store-button">
                 <FaAndroid className="store-icon" />
                 Explóralo en AppGallery
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -117,12 +119,12 @@ function Inicio() {
 
       <footer className="footer">
         <div className="footer-links">
-          <a href="#seguridad">Seguridad</a>
-          <a href="#aviso-legal">Aviso Legal</a>
-          <a href="#contratacion">Cláusulas Generales de Contratación</a>
-          <a href="#mapa-sitio">Mapa del Sitio</a>
-          <a href="#reclamaciones">Libro de Reclamaciones</a>
-          <a href="#contacto">Llámanos (01) 595-0000</a>
+          <Link to="/proximamente">Seguridad</Link>
+          <Link to="/proximamente">Aviso Legal</Link>
+          <Link to="/proximamente">Cláusulas Generales de Contratación</Link>
+          <Link to="/proximamente">Mapa del Sitio</Link>
+          <Link to="/proximamente">Libro de Reclamaciones</Link>
+          <Link to="/proximamente">Llámanos (01) 595-0000</Link>
         </div>
         <div className="footer-info">
           Banco BEK - RUC 20100130204 | Av. República de Panamá 3055 - San Isidro
