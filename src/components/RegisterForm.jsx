@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import api from '../api';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
@@ -12,23 +14,37 @@ function RegisterForm() {
     fecha_nac: '',
     password: ''
   });
+  const [error, setError] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
+    if (e.target.name === "email") {
+      setError(false); // Reinicia el error al cambiar el email
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const response = await api.post('/usuarios/crear', formData);
-      console.log('Usuario creado:', response.data);
-      alert('Usuario creado exitosamente');
+
+      if (response.status === 200) {
+        console.log('Usuario creado:', response.data);
+        navigate('/login'); // Redirige al login si la creación es exitosa
+      }
     } catch (error) {
-      console.error('Error al crear usuario:', error);
-      alert('Hubo un error al crear el usuario');
+      if (error.response && error.response.status === 400) {
+        setError(true); // Activa el estado de error para mostrar la animación
+        console.log('Error al crear usuario:', error.response.data.message);
+        alert(error.response.data.message || 'Error: el email ya está registrado.');
+      } else {
+        console.error('Error inesperado al crear usuario:', error);
+        alert('Hubo un error al crear el usuario');
+      }
     }
   };
 
@@ -47,7 +63,19 @@ function RegisterForm() {
         </label>
         <label style={styles.label}>
           Correo Electrónico:
-          <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="ejemplo@correo.com" style={styles.input} required />
+          <input 
+            type="email" 
+            name="email" 
+            value={formData.email} 
+            onChange={handleChange} 
+            placeholder="ejemplo@correo.com" 
+            style={{ 
+              ...styles.input, 
+              ...(error ? styles.inputError : {}), 
+              ...(error ? styles.shakeAnimation : {}) 
+            }}
+            required 
+          />
         </label>
         <label style={styles.label}>
           Teléfono:
@@ -118,8 +146,13 @@ const styles = {
     transition: 'border-color 0.3s',
     outline: 'none',
   },
-  inputFocus: {
+  inputError: {
     borderColor: '#D32F2F',
+    backgroundColor: '#ffe6e6',
+  },
+  shakeAnimation: {
+    animation: 'shake 0.5s ease',
+    animationIterationCount: 1,
   },
   button: {
     padding: '12px',
@@ -132,10 +165,11 @@ const styles = {
     fontWeight: 'bold',
     transition: 'background-color 0.3s, transform 0.2s',
   },
-  buttonHover: {
-    backgroundColor: '#B71C1C',
-    transform: 'scale(1.05)',
-  },
+  '@keyframes shake': {
+    '0%, 100%': { transform: 'translateX(0)' },
+    '20%, 60%': { transform: 'translateX(-5px)' },
+    '40%, 80%': { transform: 'translateX(5px)' },
+  }
 };
 
 export default RegisterForm;

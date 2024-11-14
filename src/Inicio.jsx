@@ -1,10 +1,9 @@
-// src/Inicio.jsx
 import React, { useState } from 'react';
 import './Inicio.css';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
 import { Link } from 'react-router-dom';
-import { FaPiggyBank, FaCreditCard, FaMoneyBillWave, FaPercentage } from 'react-icons/fa';
+import { FaPiggyBank, FaCreditCard, FaMoneyBillWave, FaPercentage, FaLandmark, FaGooglePlay, FaAndroid, FaApple } from 'react-icons/fa';
 
 function Inicio() {
   const [isRegister, setIsRegister] = useState(true);
@@ -16,7 +15,7 @@ function Inicio() {
   return (
     <div className="Inicio">
       <header className="navbar">
-        <h1>BEK</h1>
+        <h1><FaLandmark className="navbar-icon" /> BEK</h1>
         <nav>
           <a href="#productos">Productos</a>
           <a href="#promociones">Promociones</a>
@@ -65,6 +64,53 @@ function Inicio() {
             <h3>Tasas de Interés</h3>
             <p>Consulta nuestras tasas de interés competitivas en el mercado.</p>
             <Link to="/rates">Ver tasas &gt;</Link>
+          </div>
+        </section>
+
+        <section className="product-discovery-section">
+          <div className="product-discovery-content">
+            <div className="discovery-icon">
+              <FaLandmark className="large-icon" />
+            </div>
+            <div className="discovery-text">
+              <h3>Descubre productos a tu medida</h3>
+              <p>Ingresa solo tu DNI y conoce todos los productos a los que puedes acceder.</p>
+              <input type="text" placeholder="Número de documento" className="dni-input" />
+              <div className="checkbox-container">
+                <input type="checkbox" id="data-consent" />
+                <label htmlFor="data-consent">
+                  Autorizo el tratamiento de mis datos personales para{" "}
+                  <Link to="/terms" className="terms-link">fines comerciales y/o publicitarios</Link>
+                </label>
+              </div>
+              <button className="discover-button">Descubrir productos</button>
+            </div>
+          </div>
+        </section>
+
+        <section className="app-promotion-section">
+          <div className="app-promotion-content">
+            <div className="app-logo">
+              <div className="app-logo-icon">
+                <FaLandmark />
+              </div>
+              <div>BEK APP</div>
+            </div>
+            <p>Todas las operaciones desde tu celular</p>
+            <div className="app-stores">
+              <a href="#" className="store-button">
+                <FaApple className="store-icon" />
+                Consíguelo en el App Store
+              </a>
+              <a href="#" className="store-button">
+                <FaGooglePlay className="store-icon" />
+                Disponible en Google Play
+              </a>
+              <a href="#" className="store-button">
+                <FaAndroid className="store-icon" />
+                Explóralo en AppGallery
+              </a>
+            </div>
           </div>
         </section>
       </main>
