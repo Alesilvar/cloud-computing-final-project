@@ -1,6 +1,7 @@
+// src/components/RegisterForm.jsx
 import React, { useState } from 'react';
-import api from '../api';
 import { useNavigate } from 'react-router-dom';
+import { userApi } from '../api';
 
 function RegisterForm() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function RegisterForm() {
     fecha_nac: '',
     password: ''
   });
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null); // Cambiado a null para manejar diferentes mensajes de error
 
   const handleChange = (e) => {
     setFormData({
@@ -22,7 +23,7 @@ function RegisterForm() {
       [e.target.name]: e.target.value
     });
     if (e.target.name === "email") {
-      setError(false); // Reinicia el error al cambiar el email
+      setError(null); // Reinicia el error al cambiar el email
     }
   };
 
@@ -30,7 +31,7 @@ function RegisterForm() {
     e.preventDefault();
 
     try {
-      const response = await api.post('/usuarios/crear', formData);
+      const response = await userApi.post('/usuarios/crear', formData);
 
       if (response.status === 200) {
         console.log('Usuario creado:', response.data);
@@ -38,12 +39,12 @@ function RegisterForm() {
       }
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        setError(true); // Activa el estado de error para mostrar la animación
+        setError(error.response.data.message || 'Error: el email o el DNI ya está registrado.');
         console.log('Error al crear usuario:', error.response.data.message);
-        alert(error.response.data.message || 'Error: el email ya está registrado.');
+        alert(error.response.data.message || 'Error: el email o el DNI ya está registrado.');
       } else {
         console.error('Error inesperado al crear usuario:', error);
-        alert('Hubo un error al crear el usuario');
+        alert('Hubo un error inesperado al crear el usuario');
       }
     }
   };
@@ -97,6 +98,7 @@ function RegisterForm() {
           Contraseña:
           <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Contraseña" style={styles.input} required />
         </label>
+        {error && <p style={{ color: '#D32F2F', fontSize: '0.9em' }}>{error}</p>}
         <button type="submit" style={styles.button}>Crear Cuenta</button>
       </form>
     </div>

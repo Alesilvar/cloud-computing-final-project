@@ -1,8 +1,10 @@
 // src/components/LoginForm.jsx
 import React, { useState } from 'react';
-import api from '../api';
+import { useNavigate } from 'react-router-dom';
+import { userApi } from '../api';
 
 function LoginForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -18,26 +20,51 @@ function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/usuarios/login', formData);
-      console.log('Usuario autenticado:', response.data);
-      alert('Inicio de sesión exitoso');
+      const response = await userApi.post('/usuarios/login', formData);
+      console.log('Respuesta completa:', response.data.body); // Agrega este log
+  
+      const { token, expires, usuario_id, nombre } = response.data.body;
+      console.log('Nombre:', nombre); // Verifica si 'nombre' es undefined
+  
+      // Guarda el token, el ID de usuario y el nombre en localStorage
+      localStorage.setItem('token', token);
+      localStorage.setItem('tokenExpiry', expires);
+      localStorage.setItem('usuario_id', usuario_id);
+      localStorage.setItem('userName', nombre); // Guarda el nombre del usuario
+  
+      navigate('/interfaceuser');
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       alert('Hubo un error al iniciar sesión');
     }
   };
-
   return (
     <div style={styles.container}>
       <h2 style={styles.heading}>Inicia sesión en BEK</h2>
       <form onSubmit={handleSubmit} style={styles.form}>
         <label style={styles.label}>
           Correo Electrónico:
-          <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="ejemplo@correo.com" style={styles.input} required />
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="ejemplo@correo.com"
+            style={styles.input}
+            required
+          />
         </label>
         <label style={styles.label}>
           Contraseña:
-          <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Contraseña" style={styles.input} required />
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Contraseña"
+            style={styles.input}
+            required
+          />
         </label>
         <button type="submit" style={styles.button}>Iniciar Sesión</button>
       </form>
