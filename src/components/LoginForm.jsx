@@ -1,4 +1,3 @@
-// src/components/LoginForm.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userApi } from '../api';
@@ -9,6 +8,7 @@ function LoginForm() {
     email: '',
     password: ''
   });
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     setFormData({
@@ -21,23 +21,26 @@ function LoginForm() {
     e.preventDefault();
     try {
       const response = await userApi.post('/usuarios/login', formData);
-      console.log('Respuesta completa:', response.data.body); // Agrega este log
-  
-      const { token, expires, usuario_id, nombre } = response.data.body;
-      console.log('Nombre:', nombre); // Verifica si 'nombre' es undefined
-  
-      // Guarda el token, el ID de usuario y el nombre en localStorage
-      localStorage.setItem('token', token);
-      localStorage.setItem('tokenExpiry', expires);
+      console.log('Respuesta completa del servidor (Login):', response.data);
+
+      const { usuario_id } = response.data.body;
+
+      if (!usuario_id) {
+        setError('Error: El servidor no devolvió un usuario_id.');
+        return;
+      }
+
+      // Guardar el ID del usuario en localStorage
       localStorage.setItem('usuario_id', usuario_id);
-      localStorage.setItem('userName', nombre); // Guarda el nombre del usuario
-  
-      navigate('/interfaceuser');
+      console.log('usuario_id guardado:', usuario_id);
+
+      navigate('/interfaceuser'); // Redirigir a la interfaz de usuario
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
-      alert('Hubo un error al iniciar sesión');
+      setError('Error al iniciar sesión: Verifique sus credenciales.');
     }
   };
+
   return (
     <div style={styles.container}>
       <h2 style={styles.heading}>Inicia sesión en BEK</h2>
@@ -66,6 +69,7 @@ function LoginForm() {
             required
           />
         </label>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <button type="submit" style={styles.button}>Iniciar Sesión</button>
       </form>
     </div>

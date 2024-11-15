@@ -29,23 +29,24 @@ function RegisterForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await userApi.post('/usuarios/crear', formData);
-
+  
       if (response.status === 200) {
         console.log('Usuario creado:', response.data);
         navigate('/login'); // Redirige al login si la creación es exitosa
-      }
-    } catch (error) {
-      if (error.response && error.response.status === 400) {
-        setError(error.response.data.message || 'Error: el email o el DNI ya está registrado.');
-        console.log('Error al crear usuario:', error.response.data.message);
-        alert(error.response.data.message || 'Error: el email o el DNI ya está registrado.');
+      } else if (response.status === 400) {
+        setError(response.data.message || 'Error: el email o el DNI ya está registrado.');
+        console.log('Error al crear usuario:', response.data.message);
+        alert(response.data.message || 'Error: el email o el DNI ya está registrado.');
       } else {
-        console.error('Error inesperado al crear usuario:', error);
+        console.error('Error inesperado al crear usuario:', response);
         alert('Hubo un error inesperado al crear el usuario');
       }
+    } catch (error) {
+      console.error('Error en la solicitud:', error);
+      alert('Hubo un problema con la conexión. Inténtalo de nuevo más tarde.');
     }
   };
 

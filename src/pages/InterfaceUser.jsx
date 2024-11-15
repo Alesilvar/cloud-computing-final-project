@@ -1,4 +1,3 @@
-// src/pages/InterfaceUser.jsx
 import React, { useEffect, useState } from 'react';
 import { getUserData } from '../authService';
 
@@ -9,13 +8,16 @@ function InterfaceUser() {
     const fetchUserData = async () => {
       try {
         const usuario_id = localStorage.getItem('usuario_id');
-        if (!usuario_id) {
-          throw new Error('No se encontró el usuario_id en localStorage');
-        }
+        if (!usuario_id) throw new Error('No se encontró el usuario_id en localStorage');
 
-        // Obtener los datos completos del usuario
         const usuario = await getUserData(usuario_id);
-        setUserName(usuario.nombre); // Asegúrate de que `nombre` esté en la respuesta
+        console.log('Datos del usuario:', usuario);
+
+        if (usuario && usuario.nombre) {
+          setUserName(usuario.nombre);
+        } else {
+          console.error('Usuario no encontrado');
+        }
       } catch (error) {
         console.error('Error al obtener los datos del usuario:', error);
       }
@@ -31,7 +33,7 @@ function InterfaceUser() {
         {userName && <span style={styles.userName}>Bienvenido, {userName}</span>}
       </nav>
       <div style={styles.content}>
-        <h1>Bienvenido a la interfaz de usuario</h1>
+        <h1>Bienvenido, {userName}</h1>
         <p>Has iniciado sesión correctamente y puedes acceder a esta página protegida.</p>
       </div>
     </div>

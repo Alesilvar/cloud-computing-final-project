@@ -1,24 +1,16 @@
 // src/components/ProtectedRoute.jsx
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { isTokenValid } from '../authService';
 
-function ProtectedRoute({ children }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
+const ProtectedRoute = ({ children }) => {
+  const usuario_id = localStorage.getItem('usuario_id');
 
-  useEffect(() => {
-    const validateToken = async () => {
-      const valid = await isTokenValid();
-      setIsAuthenticated(valid);
-    };
-    validateToken();
-  }, []);
-
-  if (isAuthenticated === null) {
-    return <p>Cargando...</p>; // Mensaje de carga mientras se valida
+  // Verifica si existe el usuario_id en localStorage
+  if (!usuario_id) {
+    return <Navigate to="/login" />;
   }
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
-}
+  return children;
+};
 
 export default ProtectedRoute;
