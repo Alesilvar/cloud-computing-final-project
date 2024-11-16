@@ -26,7 +26,7 @@ function LoginForm() {
       const { usuario_id } = response.data.body;
 
       if (!usuario_id) {
-        setError('Error: El servidor no devolvió un usuario_id.');
+        setError('Usuario o contrase;a incorrectos');
         return;
       }
 

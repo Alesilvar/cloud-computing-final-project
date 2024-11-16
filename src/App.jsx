@@ -4,6 +4,7 @@ import Inicio from './Inicio';
 import Login from './pages/Login';
 import Proximamente from './pages/Proximamente';
 import InterfaceUser from './pages/InterfaceUser';
+import UsuarioTransacciones from './pages/UsuarioTransacciones'; // Cambiado al nombre correcto
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -17,6 +18,14 @@ function App() {
         element={
           <ProtectedRoute>
             <InterfaceUser />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/transacciones/:cuenta_id"
+        element={
+          <ProtectedRoute>
+            <UsuarioTransacciones /> {/* Cambiado al nombre correcto */}
           </ProtectedRoute>
         }
       />
