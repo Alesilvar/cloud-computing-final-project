@@ -1,12 +1,30 @@
 import React from 'react';
 
-function Login() {
+function CuentaForm() {
   return (
-    <div>
-      <h2>Página de Login</h2>
-      <p>Bienvenido a la página de inicio de sesión de ProBanco.</p>
+    <div style={styles.container}>
+      <header style={styles.header}>
+        <h1 style={styles.title}>Banca por Internet</h1>
+      </header>
     </div>
   );
 }
 
-export default Login;
+const styles = {
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh',
+    backgroundColor: '#f7f7f7',
+  },
+  header: {
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: '2.5em',
+    color: '#333',
+  },
+};
+
+export default CuentaForm;
