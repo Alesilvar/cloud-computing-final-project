@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { getUserData } from '../authService';
-import { accountApi, cardApi } from '../api';
+import { accountApi, cardApi, supportApi } from '../api';
 import { Link } from 'react-router-dom';
 import CuentaUsuario from '../components/CuentaUsuario';
+import UsuarioTarjetas from '../components/UsuarioTarjetas';
+import UsuarioPagos from '../components/UsuarioPagos'; // Importa el componente de pagos
 import { FaMoneyBillWave, FaMobileAlt, FaCreditCard, FaWater } from 'react-icons/fa';
 
 function InterfaceUser() {
+  const [supportTitle, setSupportTitle] = useState('');
+  const [supportDescription, setSupportDescription] = useState('');
+  const [message, setMessage] = useState('');
   const [userName, setUserName] = useState('');
   const [accounts, setAccounts] = useState([]);
   const [selectedCards, setSelectedCards] = useState([]);
+  const [selectedAccountId, setSelectedAccountId] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -33,6 +39,16 @@ function InterfaceUser() {
     fetchUserData();
   }, []);
 
+  const actualizarCuentas = async () => {
+    try {
+      const usuario_id = localStorage.getItem('usuario_id');
+      const response = await accountApi.post('/cuentas/listar', { usuario_id });
+      setAccounts(response.data.body);
+    } catch (error) {
+      console.error('Error al actualizar las cuentas:', error);
+    }
+  };
+
   const fetchCardsForAccount = async (cuenta_id) => {
     try {
       const usuario_id = localStorage.getItem('usuario_id');
@@ -40,9 +56,45 @@ function InterfaceUser() {
         usuario_id,
         cuenta_id,
       });
-      setSelectedCards(response.data.body);
+      setSelectedCards(response.data.body.tarjetas);
+      setSelectedAccountId(cuenta_id);
     } catch (error) {
       console.error('Error al obtener las tarjetas:', error);
+    }
+  };
+
+  const toggleCards = (cuenta_id) => {
+    if (selectedAccountId === cuenta_id) {
+      setSelectedAccountId(null);
+      setSelectedCards([]);
+    } else {
+      fetchCardsForAccount(cuenta_id);
+    }
+  };
+
+  const handleSupportSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const usuario_id = localStorage.getItem('usuario_id');
+      if (!usuario_id) throw new Error('Usuario no autenticado');
+
+      if (!supportTitle || !supportDescription) {
+        throw new Error('El título y la descripción son obligatorios');
+      }
+
+      const payload = {
+        usuario_id,
+        titulo: supportTitle,
+        descripcion: supportDescription,
+      };
+
+      const response = await supportApi.post('/soporte/crear', payload);
+      setMessage('Solicitud creada exitosamente: ' + response.data.body.ticket_id);
+      setSupportTitle('');
+      setSupportDescription('');
+    } catch (error) {
+      console.error('Error al crear la solicitud de soporte:', error);
+      setMessage('Error al crear la solicitud. Intenta nuevamente.');
     }
   };
 
@@ -81,37 +133,60 @@ function InterfaceUser() {
                     nombreCuenta={account.nombre_cuenta}
                     saldo={account.saldo}
                     interes={account.interes}
+                    cuentaId={account.cuenta_id}
+                    actualizarCuentas={actualizarCuentas}
                   />
                   <button
                     style={styles.cardButton}
-                    onClick={() => fetchCardsForAccount(account.cuenta_id)}
+                    onClick={() => toggleCards(account.cuenta_id)}
                   >
-                    Ver tarjetas
+                    {selectedAccountId === account.cuenta_id ? 'Ocultar tarjetas' : 'Ver tarjetas'}
                   </button>
                   <Link to={`/transacciones/${account.cuenta_id}`}>
-  <button style={styles.transactionButton}>Hacer transacción</button>
-</Link>
+                    <button style={styles.transactionButton}>Hacer transacción</button>
+                  </Link>
+                  {selectedAccountId === account.cuenta_id && (
+                    <UsuarioTarjetas tarjetas={selectedCards} />
+                  )}
                 </div>
               </div>
             ))
           ) : (
             <p style={styles.noAccounts}>No tienes cuentas registradas.</p>
           )}
-          {selectedCards.length > 0 && (
-            <div style={styles.cardsContainer}>
-              <h3 style={styles.sectionTitle}>Tarjetas asociadas</h3>
-              {selectedCards.map((card) => (
-                <div key={card.tarjeta_id} style={styles.cardItem}>
-                  <p><strong>Número de Tarjeta:</strong> {card.tarjeta_id}</p>
-                  <p><strong>Saldo Disponible:</strong> S/ {card.saldo_disponible}</p>
-                  <p><strong>Estado:</strong> {card.estado}</p>
-                  <p><strong>Fecha de Emisión:</strong> {card.fecha_emision}</p>
-                  <p><strong>Fecha de Vencimiento:</strong> {card.fecha_vencimiento}</p>
-                  <p><strong>CVV:</strong> {card.cvv}</p>
-                </div>
-              ))}
-            </div>
-          )}
+        </div>
+        <div style={styles.supportSection}>
+          <h3>Solicitudes de Soporte</h3>
+          <form onSubmit={handleSupportSubmit} style={styles.form}>
+            <label>
+              Título:
+              <input
+                type="text"
+                value={supportTitle}
+                onChange={(e) => setSupportTitle(e.target.value)}
+                style={styles.input}
+                required
+              />
+            </label>
+            <label>
+              Descripción:
+              <textarea
+                value={supportDescription}
+                onChange={(e) => setSupportDescription(e.target.value)}
+                style={styles.textarea}
+                required
+              ></textarea>
+            </label>
+            <button type="submit" style={styles.button}>
+              Enviar Solicitud
+            </button>
+          </form>
+          {message && <p>{message}</p>}
+        </div>
+
+        {/* Sección de Pagos */}
+        <div style={styles.supportSection}>
+          <UsuarioPagos />
         </div>
       </main>
     </div>
@@ -212,21 +287,12 @@ const styles = {
     color: '#666',
     fontStyle: 'italic',
   },
-  cardsContainer: {
+  supportSection: {
     marginTop: '20px',
   },
-  sectionTitle: {
-    fontSize: '1.4em',
-    color: '#333',
-    marginBottom: '10px',
-  },
-  cardItem: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: '8px',
-    padding: '15px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    marginBottom: '10px',
-  },
+  input: { margin: '10px 0', padding: '10px', width: '100%' },
+  textarea: { margin: '10px 0', padding: '10px', width: '100%', height: '100px' },
+  button: { backgroundColor: '#1976D2', color: '#FFFFFF', padding: '10px 15px', border: 'none' },
 };
 
 export default InterfaceUser;
