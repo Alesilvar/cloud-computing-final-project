@@ -2,7 +2,7 @@ import React from 'react';
 import Transacciones from '../components/Transacciones';
 
 function UsuarioTransacciones() {
-  const usuarioId = localStorage.getItem('usuario_id'); // Recuperar usuario_id de localStorage
+  const usuarioId = localStorage.getItem('usuario_id');
 
   return (
     <div style={styles.container}>

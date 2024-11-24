@@ -52,8 +52,8 @@ function RegisterForm() {
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.heading}>Únete a BEK</h2>
-      <p style={styles.subheading}>Regístrate y descubre todos los beneficios de ser parte de BEK.</p>
+      <h2 style={styles.heading}>Únete a BPC</h2>
+      <p style={styles.subheading}>Regístrate y descubre todos los beneficios de ser parte de BPC.</p>
       <form onSubmit={handleSubmit} style={styles.form}>
         <label style={styles.label}>
           Nombre:

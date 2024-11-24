@@ -1,4 +1,3 @@
-// src/pages/Login.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
@@ -12,10 +11,10 @@ function Login() {
 
   return (
     <div style={styles.pageContainer}>
-      <div style={styles.loginContainer}>
+      <button onClick={goToHome} style={styles.homeButton}>
+        Ir al Inicio
+      </button>
         <LoginForm />
-        <button onClick={goToHome} style={styles.homeButton}>Ir al Inicio</button>
-      </div>
     </div>
   );
 }
@@ -23,35 +22,27 @@ function Login() {
 const styles = {
   pageContainer: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     height: '100vh',
-    backgroundColor: '#f5f5f5', // Fondo claro
+    backgroundColor: '#D32F2F',
     fontFamily: 'Arial, sans-serif',
-  },
-  loginContainer: {
-    textAlign: 'center',
-    backgroundColor: '#ffffff',
-    padding: '40px',
-    borderRadius: '8px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-    maxWidth: '400px',
-    width: '100%',
+    position: 'relative',
   },
   homeButton: {
-    marginTop: '20px',
+    position: 'absolute',
+    top: '20px',
+    right: '20px',
     padding: '10px 20px',
-    backgroundColor: '#D32F2F', // Rojo primario
-    color: '#FFFFFF',
+    backgroundColor: '#FFFFFF',
+    color: '#D32F2F',
     fontSize: '1em',
     border: 'none',
     borderRadius: '4px',
     cursor: 'pointer',
     fontWeight: 'bold',
     transition: 'background-color 0.3s',
-  },
-  homeButtonHover: {
-    backgroundColor: '#b71c1c', // Rojo oscuro
   },
 };
 

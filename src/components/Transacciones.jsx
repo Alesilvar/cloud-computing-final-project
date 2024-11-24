@@ -8,17 +8,16 @@ function Transacciones({ usuarioId }) {
   const [cuentaDestino, setCuentaDestino] = useState('');
   const [usuarioDestino, setUsuarioDestino] = useState('');
   const [monto, setMonto] = useState('');
-  const navigate = useNavigate(); // Hook para redirigir al usuario
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Obtener las cuentas del usuario al cargar el componente
     const fetchCuentas = async () => {
       try {
         const response = await accountApi.post('/cuentas/listar', { usuario_id: usuarioId });
         setCuentas(response.data.body);
-        setCuentaOrigen(response.data.body[0]?.cuenta_id || ''); // Selecciona la primera cuenta por defecto
-      } catch {
-        // No mostrar errores en consola
+        setCuentaOrigen(response.data.body[0]?.cuenta_id || '');
+      } catch (error) {
+        alert('Error al cargar las cuentas del usuario. Intente nuevamente más tarde.');
       }
     };
     fetchCuentas();
@@ -26,13 +25,12 @@ function Transacciones({ usuarioId }) {
 
   const handleCrearTransaccion = async () => {
     try {
-      // Verifica que todos los campos estén llenos
       if (!cuentaOrigen || !cuentaDestino || !usuarioDestino || !monto) {
         alert('Por favor, llena todos los campos.');
         return;
       }
 
-      await transactionApi.post('/transaccion/crear', {
+      const response = await transactionApi.post('/transaccion/crear', {
         usuario_origen: usuarioId,
         cuenta_origen: cuentaOrigen,
         usuario_destino: usuarioDestino,
@@ -40,10 +38,18 @@ function Transacciones({ usuarioId }) {
         monto: parseFloat(monto),
       });
 
-      // Redirigir al usuario a la interfaz de usuario en caso de éxito
-      navigate('/interfaceuser');
-    } catch {
-      // Redirigir a la interfaz de usuario incluso si ocurre un error
+      // Manejar el `statusCode` directamente del JSON de la respuesta
+      const { statusCode, message, error } = response.data;
+
+      if (statusCode === 200) {
+        alert(message || 'Transacción realizada con éxito.');
+        navigate('/interfaceuser');
+      } else {
+        alert(`Error ${statusCode}: ${error || 'Ocurrió un error inesperado.'}`);
+        navigate('/interfaceuser');
+      }
+    } catch (error) {
+      alert('Ocurrió un error inesperado. Intente nuevamente más tarde.');
       navigate('/interfaceuser');
     }
   };

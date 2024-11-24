@@ -15,7 +15,7 @@ function Inicio() {
   return (
     <div className="Inicio">
       <header className="navbar">
-        <h1><FaLandmark className="navbar-icon" /> BEK</h1>
+        <h1><FaLandmark className="navbar-icon" /> BPC</h1>
         <nav>
           <Link to="/proximamente">Productos</Link>
           <Link to="/proximamente">Promociones</Link>
@@ -24,18 +24,19 @@ function Inicio() {
           <Link to="/proximamente">Atención al Cliente</Link>
         </nav>
         <div className="cta-buttons">
-          <Link to="/login" className="cta banca-internet">Banca por Internet</Link>
+          <Link to="/login" className="cta banca-internet">Inicia sesión</Link>
         </div>
       </header>
 
       <main>
         <div className="register-section">
           <div className="register-info">
-            <h2>Bienvenido a BEK</h2>
-            <p>En BEK, estamos comprometidos a brindarte las mejores soluciones bancarias para tu crecimiento personal y profesional. Únete hoy y descubre una nueva forma de manejar tus finanzas de manera segura y eficiente.</p>
+            <h2>Bienvenido a BPC</h2>
+            <p>En el Banco Peruano Continental, somos tu aliado financiero, brindándote soluciones innovadoras y seguras para tu desarrollo. Únete a BPC y gestiona tus finanzas con confianza y el respaldo de un banco con identidad peruana.</p>
             <button onClick={toggleForm} className="toggle-button">
               {isRegister ? "¿Ya tienes cuenta? Inicia sesión" : "¿No tienes cuenta? Regístrate"}
             </button>
+            {isRegister && (<img src="src/assets/edificio-bcp.png" alt="Banco BPC" className="edificio-img" />)}
           </div>
           {isRegister ? <RegisterForm /> : <LoginForm />}
         </div>
@@ -96,7 +97,7 @@ function Inicio() {
               <div className="app-logo-icon">
                 <FaLandmark />
               </div>
-              <div>BEK APP</div>
+              <div>BPC APP</div>
             </div>
             <p>Todas las operaciones desde tu celular</p>
             <div className="app-stores">
@@ -127,7 +128,7 @@ function Inicio() {
           <Link to="/proximamente">Llámanos (01) 595-0000</Link>
         </div>
         <div className="footer-info">
-          Banco BEK - RUC 20100130204 | Av. República de Panamá 3055 - San Isidro
+          Banco BPC - RUC 20100130204 | Av. República de Panamá 3055 - San Isidro
         </div>
       </footer>
     </div>

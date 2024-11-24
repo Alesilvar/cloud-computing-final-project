@@ -1,10 +1,9 @@
-// src/App.jsx
 import { Routes, Route } from 'react-router-dom';
 import Inicio from './Inicio';
 import Login from './pages/Login';
 import Proximamente from './pages/Proximamente';
 import InterfaceUser from './pages/InterfaceUser';
-import UsuarioTransacciones from './pages/UsuarioTransacciones'; // Cambiado al nombre correcto
+import UsuarioTransacciones from './pages/UsuarioTransacciones';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -22,10 +21,10 @@ function App() {
         }
       />
       <Route
-        path="/transacciones/:cuenta_id"
+        path="/transacciones"
         element={
           <ProtectedRoute>
-            <UsuarioTransacciones /> {/* Cambiado al nombre correcto */}
+            <UsuarioTransacciones />
           </ProtectedRoute>
         }
       />

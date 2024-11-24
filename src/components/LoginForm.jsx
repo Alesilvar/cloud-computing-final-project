@@ -26,15 +26,14 @@ function LoginForm() {
       const { usuario_id } = response.data.body;
 
       if (!usuario_id) {
-        setError('Usuario o contrase;a incorrectos');
+        setError('Usuario o contraseña incorrectos');
         return;
       }
 
-      // Guardar el ID del usuario en localStorage
       localStorage.setItem('usuario_id', usuario_id);
       console.log('usuario_id guardado:', usuario_id);
 
-      navigate('/interfaceuser'); // Redirigir a la interfaz de usuario
+      navigate('/interfaceuser');
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       setError('Error al iniciar sesión: Verifique sus credenciales.');
@@ -43,7 +42,7 @@ function LoginForm() {
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.heading}>Inicia sesión en BEK</h2>
+      <h2 style={styles.heading}>Inicia sesión en BPC</h2>
       <form onSubmit={handleSubmit} style={styles.form}>
         <label style={styles.label}>
           Correo Electrónico:
