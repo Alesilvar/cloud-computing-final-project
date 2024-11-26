@@ -8,10 +8,17 @@ const Proximamente = () => {
     navigate('/');
   };
 
+  const handleGoBack = () => {
+    navigate(-1); // Navega a la página anterior
+  };
+
   return (
     <div style={styles.container}>
       <h1 style={styles.message}>Estamos en desarrollo</h1>
-      <button style={styles.button} onClick={handleGoHome}>Ir al Inicio</button>
+      <div style={styles.buttonContainer}>
+        <button style={styles.button} onClick={handleGoHome}>Ir al Inicio</button>
+        <button style={styles.button} onClick={handleGoBack}>Back</button>
+      </div>
     </div>
   );
 };
@@ -30,6 +37,10 @@ const styles = {
     color: '#333333', // texto oscuro
     textAlign: 'center',
     marginBottom: '20px',
+  },
+  buttonContainer: {
+    display: 'flex',
+    gap: '10px', // Espaciado entre los botones
   },
   button: {
     padding: '10px 20px',

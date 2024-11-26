@@ -1,25 +1,32 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Accounts = ({ accounts }) => {
+  const navigate = useNavigate();
+
+  const handleNavigateToTarjetas = (cuentaId) => {
+    navigate(`/tarjeta-interfaz/${cuentaId}`);
+  };
+
   const accountsContainerStyle = {
     display: 'flex',
     flexDirection: 'column',
     gap: '1.5rem',
   };
 
-  const accountButtonStyle = {
+  const accountCardStyle = {
     background: 'white',
     border: 'none',
     borderRadius: '10px',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
     padding: '1.5rem',
     textAlign: 'left',
-    cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: '1.5rem',
     height: '120px',
+    cursor: 'pointer', // Esto hace que todo el contenedor sea clicable
   };
 
   const bankIconStyle = {
@@ -72,7 +79,11 @@ const Accounts = ({ accounts }) => {
   return (
     <div style={accountsContainerStyle}>
       {accounts.map((account) => (
-        <button key={account.cuenta_id} style={accountButtonStyle}>
+        <div
+          key={account.cuenta_id}
+          style={accountCardStyle}
+          onClick={() => handleNavigateToTarjetas(account.cuenta_id)} // Hace que todo el componente sea clicable
+        >
           <img 
             src="/src/assets/bank-icon.png"
             alt="Banco"
@@ -86,7 +97,7 @@ const Accounts = ({ accounts }) => {
             <p style={saldoStyle}>S/ {account.saldo}</p>
             <p style={saldoActualStyle}>Saldo actual</p>
           </div>
-        </button>
+        </div>
       ))}
     </div>
   );

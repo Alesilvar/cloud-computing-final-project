@@ -4,7 +4,9 @@ import Login from './pages/Login';
 import Proximamente from './pages/Proximamente';
 import InterfaceUser from './pages/InterfaceUser';
 import UsuarioTransacciones from './pages/UsuarioTransacciones';
+import SolicitudPrestamo from './pages/Prestamo'; // Corrección en el nombre de importación
 import ProtectedRoute from './components/ProtectedRoute';
+import TarjetaInterfaz from './pages/TarjetaInterfaz'; // Corrección en el nombre de importación
 
 function App() {
   return (
@@ -25,6 +27,23 @@ function App() {
         element={
           <ProtectedRoute>
             <UsuarioTransacciones />
+          </ProtectedRoute>
+        }
+      />
+      {/* Nueva ruta agregada */}
+      <Route
+        path="/solicitudprestamo"
+        element={
+          <ProtectedRoute>
+            <SolicitudPrestamo />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/tarjeta-interfaz/:cuentaId"
+        element={
+          <ProtectedRoute>
+            <TarjetaInterfaz />
           </ProtectedRoute>
         }
       />

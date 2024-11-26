@@ -6,11 +6,10 @@ const Actions = () => {
 
   const actions = [
     { id: 1, name: 'Transacción entre cuentas', icon: 'src/assets/icon1.png', path: '/transacciones' },
-    { id: 2, name: 'Solicitar Préstamo', icon: 'src/assets/icon2.png', path: '/proximamente' },
+    { id: 2, name: 'Solicitar Préstamo', icon: 'src/assets/icon2.png', path: '/SolicitudPrestamo' },
     { id: 3, name: 'Pagar deudas', icon: 'src/assets/icon3.png', path: '/proximamente' },
     { id: 4, name: 'Pagar servicios', icon: 'src/assets/icon4.png', path: '/proximamente' },
-    { id: 5, name: 'Recargar tarjeta', icon: 'src/assets/icon5.png', path: '/proximamente' },
-    { id: 6, name: 'Retirar de tarjeta', icon: 'src/assets/icon6.png', path: '/proximamente' },
+
   ];
 
   const actionsContainerStyle = {
