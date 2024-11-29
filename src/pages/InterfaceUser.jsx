@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Actions from '../components/Actions';
 import Accounts from '../components/Accounts';
 import PaymentsHistory from '../components/PaymentsHistory';
+import PrestamosHistory from '../components/PrestamosHistory'; // Importa el nuevo componente
 import SupportButton from '../components/SupportButton';
 import { accountApi, userApi, paymentApi } from '../api';
 
@@ -10,6 +11,7 @@ const InterfaceUser = () => {
   const [userName, setUserName] = useState('');
   const [accounts, setAccounts] = useState([]);
   const [payments, setPayments] = useState([]);
+  const [usuarioId, setUsuarioId] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +22,7 @@ const InterfaceUser = () => {
           console.error('No se encontró el usuario_id en localStorage');
           return;
         }
+        setUsuarioId(usuario_id);
 
         // Obtener el nombre del usuario
         const userResponse = await userApi.post('/usuarios/buscar', { usuario_id });
@@ -65,11 +68,23 @@ const InterfaceUser = () => {
   };
 
   const leftStyle = {
-    width: '30%',
+    width: '40%',
   };
 
   const rightStyle = {
     width: '70%',
+  };
+
+  const historyContainerStyle = {
+    display: 'flex', // Estilo para mostrar en columnas
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: '1.5rem', // Separación entre los historiales
+    marginTop: '2rem',
+  };
+
+  const historySectionStyle = {
+    flex: 1, // Para que ambos historiales se distribuyan de forma equitativa
   };
 
   return (
@@ -83,8 +98,16 @@ const InterfaceUser = () => {
         <div style={rightStyle}>
           <h2 style={{ fontSize: '1.5rem', color: '#F57C00', marginBottom: '1rem' }}>Mis Cuentas</h2>
           <Accounts accounts={accounts} />
-          <h2 style={{ fontSize: '1.5rem', color: '#F57C00', marginTop: '2rem' }}>Historial de pagos</h2>
-          <PaymentsHistory payments={payments} />
+          <div style={historyContainerStyle}>
+            <div style={historySectionStyle}>
+              <h2 style={{ fontSize: '1.5rem', color: '#F57C00', marginBottom: '1rem' }}>Historial de pagos</h2>
+              <PaymentsHistory payments={payments} />
+            </div>
+            <div style={historySectionStyle}>
+              <h2 style={{ fontSize: '1.5rem', color: '#F57C00', marginBottom: '1rem' }}>Historial de préstamos</h2>
+              <PrestamosHistory usuarioId={usuarioId} />
+            </div>
+          </div>
         </div>
       </div>
       <SupportButton />

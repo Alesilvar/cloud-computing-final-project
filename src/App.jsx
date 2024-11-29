@@ -7,7 +7,7 @@ import UsuarioTransacciones from './pages/UsuarioTransacciones';
 import SolicitudPrestamo from './pages/Prestamo'; // Corrección en el nombre de importación
 import ProtectedRoute from './components/ProtectedRoute';
 import TarjetaInterfaz from './pages/TarjetaInterfaz'; // Corrección en el nombre de importación
-
+import PerfilUsuario from './pages/PerfilUsuario';
 function App() {
   return (
     <Routes>
@@ -47,6 +47,8 @@ function App() {
           </ProtectedRoute>
         }
       />
+      <Route path="/perfilusuario" element={<PerfilUsuario />} />
+
     </Routes>
   );
 }

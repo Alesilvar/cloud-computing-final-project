@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Header = ({ userName }) => {
+  const navigate = useNavigate();
+
   const headerStyle = {
     display: 'flex',
     justifyContent: 'space-between',
@@ -27,10 +30,14 @@ const Header = ({ userName }) => {
     marginRight: '0.5rem',
   };
 
+  const handleConfigClick = () => {
+    navigate('/perfilusuario'); // Redirigir a la nueva página de perfil de usuario
+  };
+
   return (
     <header style={headerStyle}>
       <h2>Hola, {userName}</h2>
-      <button style={buttonStyle}>
+      <button style={buttonStyle} onClick={handleConfigClick}>
         <img
           src="src/assets/settings.png"
           alt="Configuración"

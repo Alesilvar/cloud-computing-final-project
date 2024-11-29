@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // API para usuarios
 const userApi = axios.create({
-  baseURL: 'https://ot0i7774d1.execute-api.us-east-1.amazonaws.com/dev',
+  baseURL: 'https://274lvebuqe.execute-api.us-east-1.amazonaws.com/dev',
 });
 
 // API para cuentas
@@ -34,6 +34,10 @@ const solicitudPrestamoApi = axios.create({
 const tarjetaApi = axios.create({
   baseURL: 'https://wg2jlya60g.execute-api.us-east-1.amazonaws.com/dev',
 });
+// API para préstamos
+const prestamoApi = axios.create({
+  baseURL: 'https://yawxyakxc7.execute-api.us-east-1.amazonaws.com/dev',
+});
 
 // Exportar todas las APIs
 export {
@@ -44,4 +48,5 @@ export {
   paymentApi,
   solicitudPrestamoApi,
   tarjetaApi,
+  prestamoApi,
 };

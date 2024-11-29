@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import iconRecargar from '../assets/icon1.png';
 import iconRetirar from '../assets/icon2.png';
-import iconEliminar from '../assets/icon3.png';
-import iconNueva from '../assets/icon4.png';
+import iconEliminar from '../assets/image37.png';
+import iconNueva from '../assets/image 38.png';
 import { tarjetaApi } from '../api';
 
 const OperacionesTarjeta = ({ tarjetas, cuentaId, usuarioId, onUpdate }) => {
@@ -40,7 +40,6 @@ const OperacionesTarjeta = ({ tarjetas, cuentaId, usuarioId, onUpdate }) => {
         tarjeta_id: selectedCard,
         monto: parseFloat(monto),
       });
-      alert(`${actionType} realizada con éxito.`);
       onUpdate();
       closeModal();
     } catch (error) {

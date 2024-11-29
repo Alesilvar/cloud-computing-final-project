@@ -3,14 +3,24 @@ import { solicitudPrestamoApi } from '../api'; // Asegúrate de tener la API con
 
 const ListaSolicitudPrestamo = ({ usuarioId }) => {
   const [solicitudes, setSolicitudes] = useState([]);
+  const [error, setError] = useState(null); // Para manejar errores
+  const [loading, setLoading] = useState(true); // Para manejar el estado de carga
 
   useEffect(() => {
     const fetchSolicitudes = async () => {
       try {
         const response = await solicitudPrestamoApi.post('/solicitud-prestamo/listar', { usuario_id: usuarioId });
-        setSolicitudes(response.data.body.data); // Ajusta según la estructura de la API
+        if (response.data && response.data.body && Array.isArray(response.data.body.items)) {
+          setSolicitudes(response.data.body.items); // Asegúrate de que sean los datos correctos
+        } else {
+          console.error('Estructura inesperada de la API:', response.data);
+          setError('No se pudieron obtener las solicitudes.');
+        }
       } catch (error) {
         console.error('Error al obtener las solicitudes:', error);
+        setError('Error al conectar con el servidor.');
+      } finally {
+        setLoading(false); // Finaliza el estado de carga
       }
     };
 
@@ -18,6 +28,14 @@ const ListaSolicitudPrestamo = ({ usuarioId }) => {
       fetchSolicitudes();
     }
   }, [usuarioId]);
+
+  if (loading) {
+    return <p>Cargando solicitudes...</p>;
+  }
+
+  if (error) {
+    return <p style={styles.error}>{error}</p>;
+  }
 
   return (
     <div style={styles.container}>
@@ -66,6 +84,10 @@ const styles = {
   noData: {
     fontSize: '1rem',
     color: '#555',
+  },
+  error: {
+    fontSize: '1rem',
+    color: 'red',
   },
 };
 
