@@ -221,11 +221,15 @@ const InterfaceUser = () => {
           <div style={historyContainerStyle}>
             <div style={historySectionStyle}>
               <h2 style={{ fontSize: '1.5rem', color: '#F57C00', marginBottom: '1rem' }}>Historial de pagos</h2>
-              <PaymentsHistory payments={payments} />
+              {payments && payments.length > 0 ? ( // Verifica si 'payments' es un array y no está vacío
+                <PaymentsHistory payments={payments} /> 
+              ) : (
+                <p>No hay pagos disponibles.</p> // Mensaje si no hay pagos
+              )}
             </div>
             <div style={historySectionStyle}>
               <h2 style={{ fontSize: '1.5rem', color: '#F57C00', marginBottom: '1rem' }}>Historial de préstamos</h2>
-              <PrestamosHistory usuarioId={usuarioId} />
+              <PrestamosHistory usuarioId={usuarioId} /> 
             </div>
           </div>
         </div>

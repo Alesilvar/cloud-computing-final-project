@@ -82,24 +82,28 @@ const PrestamosHistory = ({ usuarioId }) => {
 
   return (
     <div>
-      {prestamos.map((prestamo, index) => (
-        <div key={index} style={prestamosContainerStyle}>
-          <div style={prestamoItemStyle}>
-            <div style={titleContainerStyle}>
-              <img
-                src="/src/assets/history-icon.png"
-                alt="Loan"
-                style={iconStyle}
-              />
-              <span style={titleStyle}>Descripción: {prestamo.descripcion}</span>
+      {prestamos && prestamos.length > 0 ? ( // Verifica si 'prestamos' es un array y no está vacío
+        prestamos.map((prestamo, index) => (
+          <div key={index} style={prestamosContainerStyle}>
+            <div style={prestamoItemStyle}>
+              <div style={titleContainerStyle}>
+                <img
+                  src="/src/assets/history-icon.png"
+                  alt="Loan"
+                  style={iconStyle}
+                />
+                <span style={titleStyle}>Descripción: {prestamo.descripcion}</span>
+              </div>
+              <p style={descriptionStyle}>Cuenta asociada: {prestamo.cuenta_id}</p>
+              <p style={amountStyle}>Monto: S/ {prestamo.monto.toFixed(2)}</p>
+              <p style={dateStyle}>Fecha de creación: {new Date(prestamo.fecha_creacion).toLocaleString()}</p>
+              <p style={statusStyle}>Estado: {prestamo.estado}</p>
             </div>
-            <p style={descriptionStyle}>Cuenta asociada: {prestamo.cuenta_id}</p>
-            <p style={amountStyle}>Monto: S/ {prestamo.monto.toFixed(2)}</p>
-            <p style={dateStyle}>Fecha de creación: {new Date(prestamo.fecha_creacion).toLocaleString()}</p>
-            <p style={statusStyle}>Estado: {prestamo.estado}</p>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p>No hay préstamos disponibles.</p> // Mensaje si no hay préstamos
+      )}
     </div>
   );
 };

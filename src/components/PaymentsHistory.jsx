@@ -125,48 +125,52 @@ const PaymentsHistory = ({ refreshPayments }) => {
 
   return (
     <div>
-      {payments.map((payment, index) => (
-        <div
-          key={index}
-          style={{
-            background: 'white',
-            borderRadius: '8px',
-            padding: '1rem',
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-            marginBottom: '1rem',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
-            <img
-              src="/src/assets/history-icon.png"
-              alt="Payment Icon"
-              style={iconStyle}
-            />
-            <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{payment.titulo}</h3>
-          </div>
-          <p>{payment.descripcion}</p>
-          <p>
-            Monto: <span style={{ color: 'red', fontWeight: 'bold' }}>S/ {payment.monto}</span>
-          </p>
-          <p>Fecha: {new Date(payment.fecha).toLocaleString()}</p>
-          <p style={getStatusStyle(payment.estado)}>Estado: {payment.estado}</p>
-          <button
+      {payments && payments.length > 0 ? ( // Verifica si 'payments' es un array y no está vacío
+        payments.map((payment, index) => (
+          <div
+            key={index}
             style={{
-              padding: '0.5rem 1rem',
-              backgroundColor: '#1976D2',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer',
-              marginTop: '1rem',
+              background: 'white',
+              borderRadius: '8px',
+              padding: '1rem',
+              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+              marginBottom: '1rem',
             }}
-            onClick={() => handlePayClick(payment)}
           >
-            Pagar
-          </button>
-        </div>
-      ))}
-
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+              <img
+                src="/src/assets/history-icon.png"
+                alt="Payment Icon"
+                style={iconStyle}
+              />
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{payment.titulo}</h3>
+            </div>
+            <p>{payment.descripcion}</p>
+            <p>
+              Monto: <span style={{ color: 'red', fontWeight: 'bold' }}>S/ {payment.monto}</span>
+            </p>
+            <p>Fecha: {new Date(payment.fecha).toLocaleString()}</p>
+            <p style={getStatusStyle(payment.estado)}>Estado: {payment.estado}</p>
+            <button
+              style={{
+                padding: '0.5rem 1rem',
+                backgroundColor: '#1976D2',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                marginTop: '1rem',
+              }}
+              onClick={() => handlePayClick(payment)}
+            >
+              Pagar
+            </button>
+          </div>
+        ))
+      ) : (
+        <p>No hay pagos disponibles.</p> // Mensaje si no hay pagos
+      )}
+  
       {isModalOpen && (
         <div style={{
           position: 'fixed',

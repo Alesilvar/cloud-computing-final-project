@@ -157,32 +157,40 @@ const Accounts = ({ accounts }) => {
 
   return (
     <div style={accountsContainerStyle}>
-      {accounts.map((account) => (
-        <div key={account.cuenta_id} style={accountCardStyle} onClick={() => handleNavigateToTarjetas(account.cuenta_id)}>
-          <img 
-            src="/src/assets/bank-icon.png"
-            alt="Banco"
-            style={bankIconStyle}
-          />
-          <div style={accountInfoStyle}>
-            <p style={accountNameStyle}>{account.nombre_cuenta}</p>
-            <p style={interestStyle}>Interés: {account.interes}%</p>
-          </div>
-          <div style={saldoContainerStyle}>
-            <p style={saldoStyle}>S/ {account.saldo}</p>
-            <p style={saldoActualStyle}>Saldo actual</p>
-          </div>
-          <button
-            style={buttonStyle}
-            onClick={(e) => {
-              e.stopPropagation(); // Evita que se active la navegación al hacer clic en el botón
-              openModal(account);
-            }}
+      {accounts && accounts.length > 0 ? ( // Verifica si 'accounts' es un array y no está vacío
+        accounts.map((account) => (
+          <div 
+            key={account.cuenta_id} 
+            style={accountCardStyle} 
+            onClick={() => handleNavigateToTarjetas(account.cuenta_id)}
           >
-            Agregar Saldo
-          </button>
-        </div>
-      ))}
+            <img 
+              src="/src/assets/bank-icon.png"
+              alt="Banco"
+              style={bankIconStyle}
+            />
+            <div style={accountInfoStyle}>
+              <p style={accountNameStyle}>{account.nombre_cuenta}</p>
+              <p style={interestStyle}>Interés: {account.interes}%</p>
+            </div>
+            <div style={saldoContainerStyle}>
+              <p style={saldoStyle}>S/ {account.saldo}</p>
+              <p style={saldoActualStyle}>Saldo actual</p>
+            </div>
+            <button
+              style={buttonStyle}
+              onClick={(e) => {
+                e.stopPropagation(); // Evita que se active la navegación al hacer clic en el botón
+                openModal(account);
+              }}
+            >
+              Agregar Saldo
+            </button>
+          </div>
+        ))
+      ) : (
+        <p>No hay cuentas disponibles.</p> // Mensaje si no hay cuentas
+      )}
 
       {isModalOpen && (
         <div style={modalOverlayStyle}>
